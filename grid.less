@@ -1,0 +1,66 @@
+.define-grid-breakpoints-if-not-defined {
+    @container-width:           1100px;
+    @tablet-width:              900px;
+    @tablet-small-width:        716px;
+    @big-phone-width:           650px;
+    @phone-width:               550px;
+    @iphone-4-landscape-width:  480px;
+    @iphone-4-width:            320px;
+}
+.define-grid-breakpoints-if-not-defined();
+
+
+
+.ei-css-grid-fn(@colgap: 20px, @rowgap: 20px) {
+	.show-when(@breakpoint, @rules) {
+		@media(min-width: @breakpoint) {
+			@rules();
+		}
+	}
+	
+	.rule-and-span(@prefix, @num) {
+		.@{prefix}@{num}  {
+			grid-column: span @num;
+		}
+
+	}
+	
+	.col-rule(@prefix) {
+		@iterations: 12;
+		.span-loop (@i) when (@i > 0) {
+			.rule-and-span(@prefix, @i);
+			.span-loop(@i - 1);
+		}
+		.span-loop (@iterations);
+
+	}
+
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	column-gap: @colgap;	
+	row-gap: @rowgap;
+	
+	.row {
+		grid-column: span 12;
+
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		column-gap: @colgap;	
+		row-gap: @rowgap;
+	}
+
+	.col-rule(xs);
+	.show-when(@tablet-width, {
+		.col-rule(t);
+	});
+	.show-when(@container-width, {
+		.col-rule(d);
+	});
+
+}
+
+
+.ei-css-grid {
+	.ei-css-grid-fn();
+}
+

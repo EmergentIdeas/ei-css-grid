@@ -5,7 +5,7 @@ A basic responsive grid.
 # Usage
 
 ```js
-import gridSetup from "ei-css-grid/initialize-webhandle-component.mjs"
+import gridSetup from "@dankolz/ei-css-grid/initialize-webhandle-component.mjs"
 let gridManager = await gridSetup(webhandle)
 
 webhandle.routers.primary.use((req, res, next) => {
